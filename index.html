@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Новогодние календари | Предновогоднее настроение</title>
+    <title>Advent Joy | Адвент-календари для волшебного декабря</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,44 +14,51 @@
         }
 
         :root {
-            --primary-red: #D32F2F;
-            --dark-red: #B71C1C;
-            --light-red: #FFEBEE;
-            --white: #FFFFFF;
-            --snow: #FFFAFA;
-            --gold: #FFD700;
-            --text-dark: #212121;
-            --text-light: #757575;
+            --frost-blue: #A8DADC;
+            --ice-blue: #F1FAEE;
+            --winter-teal: #457B9D;
+            --deep-navy: #1D3557;
+            --snow-white: #FFFFFF;
+            --soft-pink: #FFB8C6;
+            --soft-gold: #FFD166;
+            --text-dark: #2D3748;
+            --text-light: #718096;
+            --shadow: rgba(29, 53, 87, 0.08);
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Inter', sans-serif;
             color: var(--text-dark);
-            background-color: var(--snow);
-            line-height: 1.6;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            line-height: 1.7;
+            overflow-x: hidden;
         }
 
         h1, h2, h3, h4 {
             font-family: 'Playfair Display', serif;
-            font-weight: 700;
+            font-weight: 600;
+            letter-spacing: -0.5px;
         }
 
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
         }
 
-        /* Шапка */
+        /* Шапка - упрощенная */
         header {
-            background-color: var(--primary-red);
-            color: var(--white);
-            padding: 15px 0;
-            position: sticky;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(168, 218, 220, 0.2);
+            padding: 18px 0;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
         }
 
         .header-container {
@@ -63,312 +70,588 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 24px;
-            font-weight: 700;
+            gap: 12px;
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 600;
+            color: var(--deep-navy);
+            text-decoration: none;
         }
 
-        .logo i {
-            color: var(--gold);
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--frost-blue), var(--winter-teal));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transform: rotate(-5deg);
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 36px;
         }
 
         nav a {
-            color: var(--white);
+            color: var(--deep-navy);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
-            font-size: 18px;
-        }
-
-        nav a:hover {
-            color: var(--gold);
-        }
-
-        .cart-icon {
+            font-size: 16px;
             position: relative;
-            font-size: 22px;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+        }
+
+        nav a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--frost-blue), var(--winter-teal));
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover:after {
+            width: 100%;
+        }
+
+        /* Корзина в правом нижнем углу */
+        .cart-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 15px;
+        }
+
+        .cart-button {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--winter-teal), var(--deep-navy));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 26px;
+            cursor: pointer;
+            box-shadow: 0 12px 32px rgba(29, 53, 87, 0.25);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+            position: relative;
+        }
+
+        .cart-button:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 16px 40px rgba(29, 53, 87, 0.35);
         }
 
         .cart-count {
             position: absolute;
             top: -8px;
             right: -8px;
-            background-color: var(--gold);
-            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--soft-pink), #FF8BA0);
+            color: white;
             border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 12px;
+            width: 28px;
+            height: 28px;
+            font-size: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
+            border: 3px solid var(--ice-blue);
         }
 
-        /* Герой секция */
+        .cart-tooltip {
+            background: white;
+            color: var(--deep-navy);
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 8px 24px var(--shadow);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            position: absolute;
+            right: 90px;
+            top: 50%;
+            transform: translateY(-50%) translateY(10px);
+        }
+
+        .cart-button:hover .cart-tooltip {
+            opacity: 1;
+            transform: translateY(-50%) translateY(0);
+        }
+
+        /* Герой секция с параллаксом */
         .hero {
-            background: linear-gradient(rgba(211, 47, 47, 0.9), rgba(183, 28, 28, 0.9)), url('https://images.unsplash.com/photo-1571330735066-03f0d46fa347?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
-            background-size: cover;
-            background-position: center;
-            color: var(--white);
-            padding: 100px 0;
-            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 100px;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(168, 218, 220, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 184, 198, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            z-index: -2;
+        }
+
+        .snowflake {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.6;
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            animation: fadeInUp 1s ease;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, var(--deep-navy), var(--winter-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .hero p {
-            font-size: 1.3rem;
-            max-width: 700px;
-            margin: 0 auto 30px;
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 36px;
+            max-width: 600px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
         }
 
         .btn {
-            display: inline-block;
-            background-color: var(--gold);
-            color: var(--text-dark);
-            padding: 15px 30px;
-            border-radius: 50px;
+            padding: 16px 32px;
+            border-radius: 12px;
             text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            transition: all 0.3s;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             border: none;
             cursor: pointer;
         }
 
-        .btn:hover {
-            background-color: var(--white);transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        .btn-primary {
+            background: linear-gradient(135deg, var(--winter-teal), var(--deep-navy));
+            color: white;
+            box-shadow: 0 8px 24px rgba(69, 123, 157, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(69, 123, 157, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--deep-navy);
+            border: 2px solid var(--frost-blue);
+        }
+
+        .btn-secondary:hover {
+            background: var(--ice-blue);
+            transform: translateY(-3px);
         }
 
         /* Раздел с календарями */
         .products {
-            padding: 80px 0;
+            padding: 120px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
         }
 
         .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-            color: var(--dark-red);
-            font-size: 2.5rem;
+            font-size: 3rem;
+            color: var(--deep-navy);
+            margin-bottom: 16px;
             position: relative;
+            display: inline-block;
         }
 
         .section-title:after {
-            content: '';
+            content: '❄';
             position: absolute;
-            width: 100px;
-            height: 4px;
-            background-color: var(--primary-red);
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
+            right: -40px;
+            top: 0;
+            font-size: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            perspective: 1000px;
         }
 
         .product-card {
-            background-color: var(--white);
-            border-radius: 10px;
+            background: white;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 12px 32px var(--shadow);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            border: 1px solid rgba(168, 218, 220, 0.2);
         }
 
         .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            transform: translateY(-12px) rotateX(5deg);
+            box-shadow: 0 24px 48px rgba(29, 53, 87, 0.15);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            background: linear-gradient(135deg, var(--soft-pink), #FF8BA0);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 2;
         }
 
         .product-img {
-            height: 250px;
-            width: 100%;
-            object-fit: cover;
-            background-color: var(--light-red);
+            height: 260px;
+            background: linear-gradient(135deg, var(--ice-blue), #E3F2FD);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 60px;
-            color: var(--primary-red);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-img:before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+            animation: shine 3s infinite;
+        }
+
+        .product-icon {
+            font-size: 80px;
+            color: var(--winter-teal);
+            filter: drop-shadow(0 4px 12px rgba(69, 123, 157, 0.2));
         }
 
         .product-info {
-            padding: 20px;
+            padding: 28px;
+        }
+
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
         }
 
         .product-title {
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            color: var(--dark-red);
+            font-size: 1.5rem;
+            color: var(--deep-navy);
+            margin: 0;
+        }
+
+        .product-price {
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--winter-teal), var(--deep-navy));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .product-description {
             color: var(--text-light);
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-size: 0.95rem;
         }
 
-        .product-price {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--primary-red);
-            margin-bottom: 15px;
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
         }
 
         .product-rating {
-            color: var(--gold);
-            margin-bottom: 15px;
+            color: var(--soft-gold);
         }
 
         .add-to-cart {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--primary-red);
-            color: var(--white);
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--frost-blue), var(--winter-teal));
+            color: white;
             border: none;
-            border-radius: 5px;
-            font-weight: 700;
+            border-radius: 10px;
+            font-weight: 600;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .add-to-cart:hover {
-            background-color: var(--dark-red);
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(69, 123, 157, 0.3);
         }
 
-        /* О компании */
-        .about {
-            background-color: var(--light-red);
+        /* Статистика вместо "О компании" */
+        .stats {
             padding: 80px 0;
+            background: linear-gradient(135deg, var(--frost-blue), var(--ice-blue));
+            border-radius: 30px;
+            margin: 60px 24px;
         }
 
-        .about-content {
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .stat-icon {
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 20px;
             display: flex;
             align-items: center;
-            gap: 50px;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+            color: var(--winter-teal);
+            box-shadow: 0 8px 24px rgba(29, 53, 87, 0.1);
         }
 
-        .about-text {
-            flex: 1;
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--deep-navy);
+            margin-bottom: 8px;
         }
 
-        .about-image {
-            flex: 1;
-            height: 400px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .about-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.95rem;
         }
 
         /* Подвал */
         footer {
-            background-color: var(--dark-red);
-            color: var(--white);
-            padding: 60px 0 20px;
+            background: linear-gradient(135deg, var(--deep-navy), #0F1C2E);
+            color: white;
+            padding: 80px 0 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--frost-blue), transparent);
         }
 
         .footer-content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
+            grid-template-columns: 1.5fr repeat(3, 1fr);
+            gap: 60px;
+            margin-bottom: 60px;
         }
 
         .footer-column h3 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: var(--gold);
+            font-size: 1.25rem;
+            margin-bottom: 24px;
+            color: var(--frost-blue);
         }
 
         .footer-column p, .footer-column a {
             color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: block;
             text-decoration: none;
+            transition: all 0.3s ease;
         }
 
         .footer-column a:hover {
-            color: var(--gold);
+            color: var(--frost-blue);
+            transform: translateX(5px);
         }
 
-        .social-icons {
+        .footer-contact {
             display: flex;
-            gap: 15px;margin-top: 20px;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
         }
 
-        .social-icons a {
-            display: inline-flex;
+        .social-links {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .social-link {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            font-size: 20px;
-            transition: background-color 0.3s;
+            color: white;
+            transition: all 0.3s ease;
         }
 
-        .social-icons a:hover {
-            background-color: var(--gold);
-            color: var(--text-dark);
+        .social-link:hover {
+            background: var(--frost-blue);
+            color: var(--deep-navy);
+            transform: translateY(-3px);
         }
 
         .copyright {
             text-align: center;
-            padding-top: 20px;
+            padding-top: 40px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.6);
             font-size: 0.9rem;
+        }
+
+        /* Анимации */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
 
         /* Адаптивность */
         @media (max-width: 992px) {
-            .about-content {
-                flex-direction: column;
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 40px;
             }
             
             .hero h1 {
-                font-size: 2.8rem;
+                font-size: 3rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 15px;
+            nav ul {
+                display: none;
             }
             
-            nav ul {
-                gap: 15px;
+            .mobile-menu-btn {
+                display: block;
+                width: 44px;
+                height: 44px;
+                background: var(--ice-blue);
+                border-radius: 12px;
+                border: none;
+                cursor: pointer;
             }
             
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
             
-            .hero p {
-                font-size: 1.1rem;
+            .btn-group {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .cart-button {
+                width: 60px;
+                height: 60px;
+                font-size: 22px;
+                bottom: 20px;
+                right: 20px;
             }
         }
 
@@ -377,229 +660,564 @@
                 grid-template-columns: 1fr;
             }
             
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
+            .stats-grid {
+                grid-template-columns: 1fr;
             }
+            
+            .container {
+                padding: 0 16px;
+            }
+        }
+
+        /* Дополнительные улучшения */
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .feature-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--ice-blue);
+            color: var(--winter-teal);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-right: 12px;
+            margin-bottom: 12px;
+        }
+
+        .loading-bar {
+            height: 4px;
+            background: linear-gradient(90deg, var(--frost-blue), var(--winter-teal));
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            z-index: 1001;
+            transition: width 0.3s ease;
         }
     </style>
 </head>
 <body>
-    <!-- Шапка сайта -->
+    <!-- Индикатор загрузки -->
+    <div class="loading-bar"></div>
+
+    <!-- Шапка -->
     <header>
         <div class="container header-container">
-            <div class="logo">
-                <i class="fas fa-gift"></i>
-                <span>Новогодний Календарь</span>
-            </div>
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-snowflake"></i>
+                </div>
+                <span>Advent Joy</span>
+            </a>
+            
             <nav>
                 <ul>
-                    <li><a href="#products">Календари</a></li>
-                    <li><a href="#about">О нас</a></li>
-                    <li><a href="#delivery">Доставка</a></li>
+                    <li><a href="#products">Каталог</a></li>
+                    <li><a href="#how">Как работает</a></li>
+                    <li><a href="#reviews">Отзывы</a></li>
                     <li><a href="#contacts">Контакты</a></li>
                 </ul>
             </nav>
-            <div class="cart-icon">
-                <i class="fas fa-shopping-cart"></i>
-                <span class="cart-count">3</span>
-            </div>
         </div>
     </header>
 
     <!-- Герой секция -->
     <section class="hero">
+        <div class="hero-bg"></div>
         <div class="container">
-            <h1>Встречайте Новый год с волшебством!</h1>
-            <p>Эксклюзивные адвент-календари с сюрпризами на каждый день декабря. Создайте праздничное настроение для себя и своих близких!</p>
-            <a href="#products" class="btn">Выбрать календарь</a>
+            <div class="hero-content">
+                <h1>Откройте волшебство<br>каждого дня декабря</h1>
+                <p>Эксклюзивные адвент-календари с тщательно подобранными сюрпризами. Создайте уникальную традицию ожидания Нового года для всей семьи.</p>
+                
+                <div class="feature-badges">
+                    <div class="feature-badge">
+                        <i class="fas fa-star"></i>
+                        Премиум качество
+                    </div>
+                    <div class="feature-badge">
+                        <i class="fas fa-heart"></i>
+                        Ручная сборка
+                    </div>
+                    <div class="feature-badge">
+                        <i class="fas fa-leaf"></i>
+                        Эко-материалы
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <a href="#products" class="btn btn-primary">
+                        <i class="fas fa-gift"></i>
+                        Выбрать календарь
+                    </a>
+                    <a href="#how" class="btn btn-secondary">
+                        <i class="fas fa-play-circle"></i>
+                        Как это работает
+                    </a>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Раздел с календарями -->
+    <!-- Каталог -->
     <section class="products" id="products">
         <div class="container">
-            <h2 class="section-title">Наши календари</h2>
+            <div class="section-header">
+                <h2 class="section-title">Наши календари</h2>
+                <p class="section-subtitle">Каждый календарь — это история из 24 волшебных моментов, собранных с любовью и вниманием к деталям</p>
+            </div>
+            
             <div class="product-grid">
                 <!-- Календарь 1 -->
                 <div class="product-card">
+                    <div class="product-badge">Хит сезона</div>
                     <div class="product-img">
-                        <i class="fas fa-tree"></i>
+                        <i class="fas fa-tree product-icon"></i>
                     </div>
                     <div class="product-info">
-                        <h3 class="product-title">Классический новогодний</h3>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
+                        <div class="product-header">
+                            <h3 class="product-title">Зимняя сказка</h3>
+                            <div class="product-price">2,499 ₽</div>
                         </div>
-                        <p class="product-description">24 окошка с шоколадом и маленькими сюрпризами. Тема - традиционные новогодние символы.</p>
-                        <div class="product-price">1 499 ₽</div>
-                        <button class="add-to-cart">Добавить в корзину</button>
+                        <p class="product-description">24 окошка с премиальным шоколадом, миниатюрами винтажных игрушек и рецептами зимнего чая.</p>
+                        <div class="product-footer">
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span style="color: var(--text-light); margin-left: 8px;">4.8</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-plus"></i>
+                                В корзину
+                            </button>
+                        </div>
                     </div>
-                </div><!-- Календарь 2 -->
+                </div>
+                
+                <!-- Календарь 2 -->
                 <div class="product-card">
+                    <div class="product-badge">Эко-линия</div>
                     <div class="product-img">
-                        <i class="fas fa-candy-cane"></i>
+                        <i class="fas fa-leaf product-icon"></i>
                     </div>
                     <div class="product-info">
-                        <h3 class="product-title">Сладкое предвкушение</h3>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="far fa-star"></i>
+                        <div class="product-header">
+                            <h3 class="product-title">Уютный декабрь</h3>
+                            <div class="product-price">3,199 ₽</div>
                         </div>
-                        <p class="product-description">25 дней сладостей от локальных кондитерских. Каждый день - новый вкусный сюрприз.</p>
-                        <div class="product-price">2 199 ₽</div>
-                        <button class="add-to-cart">Добавить в корзину</button>
+                        <p class="product-description">Ароматные свечи, органические чаи, деревянные украшения и рецепты для зимних вечеров.</p>
+                        <div class="product-footer">
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                                <span style="color: var(--text-light); margin-left: 8px;">4.0</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-plus"></i>
+                                В корзину
+                            </button>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Календарь 3 -->
                 <div class="product-card">
+                    <div class="product-badge">Для детей</div>
                     <div class="product-img">
-                        <i class="fas fa-spa"></i>
+                        <i class="fas fa-snowman product-icon"></i>
                     </div>
                     <div class="product-info">
-                        <h3 class="product-title">Уход и релакс</h3>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                        <div class="product-header">
+                            <h3 class="product-title">Детское чудо</h3>
+                            <div class="product-price">2,899 ₽</div>
                         </div>
-                        <p class="product-description">24 миниатюры косметики и средств для ухода. Подарите себе заботу каждый день декабря.</p>
-                        <div class="product-price">3 599 ₽</div>
-                        <button class="add-to-cart">Добавить в корзину</button>
+                        <p class="product-description">Мини-игрушки, развивающие игры, безопасные сладости и задания для творчества каждый день.</p>
+                        <div class="product-footer">
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span style="color: var(--text-light); margin-left: 8px;">5.0</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-plus"></i>
+                                В корзину
+                            </button>
+                        </div>
                     </div>
                 </div>
                 
                 <!-- Календарь 4 -->
                 <div class="product-card">
+                    <div class="product-badge">Новинка</div>
                     <div class="product-img">
-                        <i class="fas fa-gamepad"></i>
+                        <i class="fas fa-mug-hot product-icon"></i>
                     </div>
                     <div class="product-info">
-                        <h3 class="product-title">Детское волшебство</h3>
-                        <div class="product-rating">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
+                        <div class="product-header">
+                            <h3 class="product-title">Кофейное путешествие</h3>
+                            <div class="product-price">4,599 ₽</div>
                         </div>
-                        <p class="product-description">25 маленьких игрушек и развивающих игр. Для детей от 3 до 10 лет.</p>
-                        <div class="product-price">2 899 ₽</div>
-                        <button class="add-to-cart">Добавить в корзину</button>
+                        <p class="product-description">24 сорта кофе от обжарщиков со всего мира, десертные сиропы и аксессуары для бариста.</p>
+                        <div class="product-footer">
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span style="color: var(--text-light); margin-left: 8px;">4.7</span>
+                            </div>
+                            <button class="add-to-cart">
+                                <i class="fas fa-plus"></i>
+                                В корзину
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- О компании -->
-    <section class="about" id="about">
+    <!-- Статистика -->
+    <section class="stats" id="how">
         <div class="container">
-            <h2 class="section-title">О нашем магазине</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Создаем праздничное настроение с 2015 года</h3>
-                    <p>Мы — команда энтузиастов, которые верят, что предновогоднее ожидание может быть таким же волшебным, как и сам праздник.</p>
-                    <p>Наши адвент-календари — это тщательно подобранные сюрпризы, которые сделают каждый день декабря особенным. Мы сотрудничаем с локальными производителями и мастерами, чтобы предложить вам уникальные и качественные продукты.</p>
-                    <p>Каждый наш календарь — это не просто набор подарков, а целая история, которая создает праздничное настроение и объединяет семью в ожидании Нового года.</p><a href="#products" class="btn" style="margin-top: 20px;">Посмотреть календари</a>
-                </div>
-                <div class="about-image">
-                    <!-- Здесь будет изображение -->
-                    <div style="width: 100%; height: 100%; background: linear-gradient(45deg, var(--primary-red), var(--dark-red)); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">
-                        <div style="text-align: center; padding: 20px;">
-                            <i class="fas fa-heart" style="font-size: 60px; margin-bottom: 20px;"></i>
-                            <p>Мы создаем волшебство для вас!</p>
-                        </div>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-alt"></i>
                     </div>
+                    <div class="stat-number">24</div>
+                    <div class="stat-label">Волшебных дня<br>в каждом календаре</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-hand-sparkles"></i>
+                    </div>
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Российских мастеров<br>и производителей</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <div class="stat-number">24ч</div>
+                    <div class="stat-label">Быстрая доставка<br>по всей стране</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="stat-number">5,000+</div>
+                    <div class="stat-label">Счастливых семей<br>с нашей традицией</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Подвал -->
-    <footer>
+    <footer id="contacts">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-column">
-                    <h3>Новогодний Календарь</h3>
-                    <p>Делаем каждый день декабря волшебным с 2015 года. Мы создаем уникальные адвент-календари с сюрпризами для всей семьи.</p>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-vk"></i></a>
-                        <a href="#"><i class="fab fa-telegram"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    <h3>Advent Joy</h3>
+                    <p style="margin-bottom: 20px; opacity: 0.8;">
+                        Создаем волшебные моменты ожидания Нового года. Наши календари — это больше чем подарки, это традиция.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-youtube"></i>
+                        </a>
                     </div>
                 </div>
-                <div class="footer-column" id="delivery">
-                    <h3>Доставка и оплата</h3>
-                    <a href="#">Способы доставки</a>
-                    <a href="#">Сроки доставки</a>
-                    <a href="#">Оплата заказа</a>
-                    <a href="#">Возврат товара</a>
+                
+                <div class="footer-column">
+                    <h3>Каталог</h3>
+                    <a href="#products">Для семьи</a>
+                    <a href="#products">Для пар</a>
+                    <a href="#products">Для детей</a>
+                    <a href="#products">Эко-серия</a>
+                    <a href="#products">Премиум коллекция</a>
                 </div>
-                <div class="footer-column" id="contacts">
+                
+                <div class="footer-column">
+                    <h3>Помощь</h3>
+                    <a href="#">Доставка и оплата</a>
+                    <a href="#">Возврат и обмен</a>
+                    <a href="#">Частые вопросы</a>
+                    <a href="#">Собрать свой календарь</a>
+                    <a href="#">Корпоративные заказы</a>
+                </div>
+                
+                <div class="footer-column">
                     <h3>Контакты</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Москва, ул. Новогодняя, д. 25</p>
-                    <p><i class="fas fa-phone"></i> +7 (495) 123-45-67</p>
-                    <p><i class="fas fa-envelope"></i> info@newyearcalendar.ru</p>
-                    <p><i class="fas fa-clock"></i> Пн-Пт: 9:00-20:00, Сб-Вс: 10:00-18:00</p>
+                    <div class="footer-contact">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Санкт-Петербург, ул. Зимняя, 24</span>
+                    </div>
+                    <div class="footer-contact">
+                        <i class="fas fa-phone"></i>
+                        <span>+7 (812) 123-45-67</span>
+                    </div>
+                    <div class="footer-contact">
+                        <i class="fas fa-envelope"></i>
+                        <span>hello@adventjoy.ru</span>
+                    </div>
+                    <div class="footer-contact">
+                        <i class="fas fa-clock"></i>
+                        <span>Ежедневно 10:00-21:00</span>
+                    </div>
                 </div>
             </div>
+            
             <div class="copyright">
-                <p>&copy; 2023 Магазин "Новогодний Календарь". Все права защищены.</p>
+                <p>&copy; 2023 Advent Joy. Все права защищены.</p>
+                <p style="margin-top: 8px; font-size: 0.8rem; opacity: 0.6;">Сделано с ❄ для волшебных зимних вечеров</p>
             </div>
         </div>
     </footer>
 
+    <!-- Корзина в правом нижнем углу -->
+    <div class="cart-fab">
+        <button class="cart-button">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="cart-count">0</span>
+            <span class="cart-tooltip">Корзина</span>
+        </button>
+    </div>
+
     <script>
-        // Имитация работы корзины
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', function() {
-                const productTitle = this.closest('.product-card').querySelector('.product-title').textContent;
-                
-                // Увеличиваем счетчик корзины
-                const cartCount = document.querySelector('.cart-count');
-                let count = parseInt(cartCount.textContent);
-                cartCount.textContent = count + 1;
-                
-                // Визуальный эффект
-                this.textContent = 'Добавлено!';
-                this.style.backgroundColor = '#4CAF50';
-                
-                setTimeout(() => {
-                    this.textContent = 'Добавить в корзину';
-                    this.style.backgroundColor = '';
-                }, 1500);
-                
-                // Уведомление
-                alert(`"${productTitle}" добавлен в корзину!`);
-            });
-        });
-        
-        // Плавная прокрутка к разделам
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                if (this.getAttribute('href').startsWith('#')) {
+        // Плавная прокрутка
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if(this.getAttribute('href') !== '#') {
                     e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetSection = document.querySelector(targetId);
-                    
-                    if (targetSection) {
-                        window.scrollTo({top: targetSection.offsetTop - 80,
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if(target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 80,
                             behavior: 'smooth'
                         });
                     }
                 }
+            });
+        });
+
+        // Анимация индикатора загрузки
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.querySelector('.loading-bar').style.width = scrolled + '%';
+        });
+
+        // Работа с корзиной
+        let cartItems = 0;
+        const cartButton = document.querySelector('.cart-button');
+        const cartCount = document.querySelector('.cart-count');
+        
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function() {
+                cartItems++;
+                cartCount.textContent = cartItems;
+                
+                const productName = this.closest('.product-card').querySelector('.product-title').textContent;
+                
+                // Анимация добавления
+                this.innerHTML = '<i class="fas fa-check"></i> Добавлено';
+                this.style.background = 'linear-gradient(135deg, #4CAF50, #45a049)';
+                
+                // Анимация корзины
+                cartButton.style.transform = 'scale(1.2) rotate(15deg)';
+                setTimeout(() => {
+                    cartButton.style.transform = '';
+                }, 300);
+                
+                // Создаем частицу
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.innerHTML = '<i class="fas fa-gift"></i>';
+                const buttonRect = this.getBoundingClientRect();
+                particle.style.cssText = `
+                    position: fixed;
+                    left: ${buttonRect.left + 20}px;
+                    top: ${buttonRect.top + 10}px;
+                    font-size: 20px;
+                    color: var(--winter-teal);
+                    z-index: 10000;
+                    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                `;
+                document.body.appendChild(particle);
+                
+                // Анимация полета к корзине
+                const cartPos = cartButton.getBoundingClientRect();
+                setTimeout(() => {
+                    particle.style.left = cartPos.left + 35 + 'px';
+                    particle.style.top = cartPos.top + 35 + 'px';
+                    particle.style.opacity = '0';
+                    particle.style.transform = 'scale(0.5)';
+                }, 10);
+                
+                setTimeout(() => {
+                    particle.remove();
+                    this.innerHTML = '<i class="fas fa-plus"></i> В корзину';
+                    this.style.background = '';
+                }, 1000);
+                
+                // Уведомление
+                const notification = document.createElement('div');
+                notification.innerHTML = `
+                    <div style="
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: white;
+                        padding: 16px 24px;
+                        border-radius: 12px;
+                        box-shadow: 0 12px 32px rgba(29, 53, 87, 0.2);
+                        z-index: 10000;
+                        animation: slideIn 0.3s ease;
+                        border-left: 4px solid var(--winter-teal);
+                        max-width: 300px;
+                    ">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <i class="fas fa-check-circle" style="color: #4CAF50; font-size: 20px;"></i>
+                            <div>
+                                <strong style="color: var(--deep-navy);">Добавлено в корзину!</strong>
+                                <div style="color: var(--text-light); font-size: 14px; margin-top: 4px;">${productName}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 3000);
+            });
+        });
+
+        // Открытие корзины
+        cartButton.addEventListener('click', function() {
+            if(cartItems === 0) {
+                // Показываем сообщение, если корзина пуста
+                const message = document.createElement('div');
+                message.innerHTML = `
+                    <div style="
+                        position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        background: white;
+                        padding: 30px;
+                        border-radius: 20px;
+                        box-shadow: 0 20px 60px rgba(29, 53, 87, 0.3);
+                        z-index: 10000;
+                        animation: fadeIn 0.3s ease;
+                        text-align: center;
+                        max-width: 300px;
+                    ">
+                        <i class="fas fa-shopping-bag" style="font-size: 40px; color: var(--frost-blue); margin-bottom: 20px;"></i>
+                        <h3 style="color: var(--deep-navy); margin-bottom: 10px;">Корзина пуста</h3>
+                        <p style="color: var(--text-light); margin-bottom: 20px;">Добавьте товары из каталога</p>
+                        <button onclick="this.parentElement.remove()" style="
+                            background: var(--frost-blue);
+                            color: var(--deep-navy);
+                            border: none;
+                            padding: 10px 20px;
+                            border-radius: 10px;
+                            font-weight: 600;
+                            cursor: pointer;
+                        ">Закрыть</button>
+                    </div>
+                `;
+                document.body.appendChild(message);
+            } else {
+                // В реальном приложении здесь будет открытие корзины
+                alert(`В вашей корзине ${cartItems} товаров\nОбщая сумма: ${cartItems * 2499} ₽`);
+            }
+        });
+
+        // Создание снежинок
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            const size = Math.random() * 8 + 4;
+            snowflake.style.cssText = `
+                width: ${size}px;
+                height: ${size}px;
+                left: ${Math.random() * 100}vw;
+                top: -20px;
+                opacity: ${Math.random() * 0.6 + 0.2};
+                animation: fall linear ${Math.random() * 20 + 10}s infinite;
+            `;
+            
+            const keyframes = `
+                @keyframes fall {
+                    to {
+                        transform: translateY(100vh) rotate(${Math.random() * 360}deg);
+                    }
+                }
+            `;
+            
+            const style = document.createElement('style');
+            style.textContent = keyframes;
+            document.head.appendChild(style);
+            
+            document.querySelector('.hero').appendChild(snowflake);
+            
+            setTimeout(() => {
+                snowflake.remove();
+            }, 30000);
+        }
+
+        // Генерация снежинок
+        for(let i = 0; i < 20; i++) {
+            setTimeout(() => createSnowflake(), i * 500);
+        }
+
+        // Эффект параллакса
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero-bg');
+            if(hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Анимация при наведении на карточки
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-12px) rotateX(5deg)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) rotateX(0)';
             });
         });
     </script>
