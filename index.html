@@ -817,18 +817,23 @@
             </div>
             
             <div class="product-grid">
-                <!-- Календарь 1 -->
+                <!-- Календарь 1 - Городок декабря -->
                 <div class="product-card">
                     <div class="product-badge">Хит сезона</div>
                     <div class="product-img">
-                        <i class="fas fa-tree product-icon"></i>
+                        <!-- ИКОНКА (замените на img для фотографии) -->
+                        <img src="images/gorodok-dekabrya.jpg" alt="Городок декабря" style="max-width: 100%; max-height: 100%; object-fit: cover;">
+                        <!-- 
+                            Для добавления фотографии замените строку выше на:
+                            <img src="путь/к/вашей/фотографии.jpg" alt="Городок декабря" style="max-width: 100%; max-height: 100%; object-fit: cover;">
+                        -->
                     </div>
                     <div class="product-info">
                         <div class="product-header">
-                            <h3 class="product-title">Зимняя сказка</h3>
-                            <div class="product-price">2,499 ₽</div>
+                            <h3 class="product-title">Городок декабря</h3>
+                            <div class="product-price">3,499 ₽</div>
                         </div>
-                        <p class="product-description">24 окошка с премиальным шоколадом, миниатюрами винтажных игрушек и рецептами зимнего чая.</p>
+                        <p class="product-description">31 домик со скрытыми сюрпризами, снежный декор, ёлки, дорожки и праздничный дом в центре создают настоящее зимнее чудо.</p>
                         <div class="product-footer">
                             <div class="product-rating">
                                 <i class="fas fa-star"></i>
@@ -838,7 +843,7 @@
                                 <i class="fas fa-star-half-alt"></i>
                                 <span style="color: var(--text-light); margin-left: 8px;">4.8</span>
                             </div>
-                            <button class="add-to-cart" data-id="1" data-name="Зимняя сказка" data-price="2499">
+                            <button class="add-to-cart" data-id="1" data-name="Городок декабря" data-price="3499">
                                 <i class="fas fa-plus"></i>
                                 В корзину
                             </button>
@@ -850,7 +855,7 @@
                 <div class="product-card">
                     <div class="product-badge">Эко-линия</div>
                     <div class="product-img">
-                        <i class="fas fa-leaf product-icon"></i>
+                        <img src="images/yutni_dekabr.jpg" alt="Уютный декабрь" style="max-width: 100%; max-height: 100%; object-fit: cover;">
                     </div>
                     <div class="product-info">
                         <div class="product-header">
@@ -879,7 +884,7 @@
                 <div class="product-card">
                     <div class="product-badge">Для детей</div>
                     <div class="product-img">
-                        <i class="fas fa-snowman product-icon"></i>
+                        <img src="images/detskoe_chudo.jpg" alt="Детское чудо" style="max-width: 100%; max-height: 100%; object-fit: cover;">
                     </div>
                     <div class="product-info">
                         <div class="product-header">
@@ -908,7 +913,7 @@
                 <div class="product-card">
                     <div class="product-badge">Новинка</div>
                     <div class="product-img">
-                        <i class="fas fa-mug-hot product-icon"></i>
+                        <img src="images/koffe_putesh.jpg" alt="Кофейное путешествие" style="max-width: 100%; max-height: 100%; object-fit: cover;">
                     </div>
                     <div class="product-info">
                         <div class="product-header">
@@ -1100,7 +1105,7 @@
         // Если корзина пуста, инициализируем демо-данными
         if (cartItems.length === 0) {
             cartItems = [
-                { id: 1, name: "Зимняя сказка", price: 2499, quantity: 1 },
+                { id: 1, name: "Городок декабря", price: 3499, quantity: 1 },
                 { id: 2, name: "Уютный декабрь", price: 3199, quantity: 1 },
                 { id: 4, name: "Кофейное путешествие", price: 4599, quantity: 1 }
             ];
@@ -1298,5 +1303,3 @@
     </script>
 </body>
 </html>
-
-
