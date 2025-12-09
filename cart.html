@@ -769,7 +769,7 @@
                     
                     <div class="summary-row">
                         <div class="summary-label">Товары (<span id="items-count-summary">3</span>)</div>
-                        <div class="summary-value" id="subtotal">10,297 ₽</div>
+                        <div class="summary-value" id="subtotal">14,697 ₽</div>
                     </div>
                     
                     <div class="summary-row">
@@ -784,7 +784,7 @@
                     
                     <div class="summary-row">
                         <div class="summary-label">Итого к оплате</div>
-                        <div class="summary-value summary-total" id="total-price">10,297 ₽</div>
+                        <div class="summary-value summary-total" id="total-price">14,697 ₽</div>
                     </div>
                     
                     <div class="discount-section">
@@ -856,7 +856,7 @@
                         <div class="delivery-option" data-price="800">
                             <i class="fas fa-rocket"></i>
                             <div>Экспресс</div>
-                            <div>800 ₽ • до 2 часов</div>
+                            <div>800 ₽ • до 24 часов</div>
                         </div>
                     </div>
                 </div>
@@ -951,7 +951,7 @@
             </div>
             <div style="display: flex; justify-content: space-between;">
                 <span style="color: var(--text-light);">Сумма:</span>
-                <span style="font-weight: 600; color: var(--winter-teal);" id="order-total">10,797 ₽</span>
+                <span style="font-weight: 600; color: var(--winter-teal);" id="order-total">14,697 ₽</span>
             </div>
         </div>
         <div style="display: flex; gap: 10px; justify-content: center;">
@@ -1312,7 +1312,17 @@
                 document.querySelector('.loading-bar').style.width = scrolled + '%';
             });
             
-
+            // Заполнение формы случайными данными для демонстрации
+            const names = ["Анна", "Мария", "Екатерина", "Александр", "Дмитрий", "Иван"];
+            const cities = ["Уфа", "Москва", "Санкт-Петербург", "Екатеринбург", "Новосибирск", "Казань"];
+            
+            document.getElementById('first-name').value = names[Math.floor(Math.random() * names.length)];
+            document.getElementById('last-name').value = "";
+            document.getElementById('phone').value = "+7 (9" + Math.floor(Math.random() * 900 + 100) + ") " + Math.floor(Math.random() * 900 + 100) + "-" + Math.floor(Math.random() * 9000 + 1000);
+            document.getElementById('email').value = "example" + Math.floor(Math.random() * 100) + "@gmail.com";
+            document.getElementById('address').value = "ул. Геологов, д. 53, кв. " + (Math.floor(Math.random() * 100) + 1);
+            document.getElementById('city').value = cities[Math.floor(Math.random() * cities.length)];
+            document.getElementById('postal-code').value = Math.floor(Math.random() * 90000 + 10000);
         }
 
         // Закрытие сообщения об успехе
@@ -1331,8 +1341,30 @@
             renderCartItems();
             initCartEvents();
             updateCartCounters();
+            
+            // Обновляем демо-данные с новой ценой для "Городок декабря"
+            const cartItems = getCartFromStorage();
+            if (cartItems.length === 0) {
+                // Если корзина пуста, инициализируем с новыми ценами
+                const updatedCartItems = [
+                    { id: 1, name: "Городок декабря", price: 9000, quantity: 1 },
+                    { id: 2, name: "Уютный декабрь", price: 3199, quantity: 1 },
+                    { id: 4, name: "Кофейное путешествие", price: 4599, quantity: 1 }
+                ];
+                saveCartToStorage(updatedCartItems);
+                renderCartItems();
+            } else {
+                // Обновляем цену для "Городок декабря" если он есть в корзине
+                const updatedCartItems = cartItems.map(item => {
+                    if (item.id === 1 && item.name === "Городок декабря") {
+                        return { ...item, price: 9000 };
+                    }
+                    return item;
+                });
+                saveCartToStorage(updatedCartItems);
+                renderCartItems();
+            }
         });
     </script>
 </body>
 </html>
-
