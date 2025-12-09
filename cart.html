@@ -355,7 +355,7 @@
         .summary-row:last-child {
             border-bottom: none;
             margin-bottom: 0;
-            padding-bottom: 0;
+            padding-bottom = 0;
         }
 
         .summary-label {
@@ -466,7 +466,7 @@
 
         .form-label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom = 8px;
             font-weight: 500;
             color: var(--deep-navy);
         }
@@ -756,7 +756,7 @@
             <div class="cart-layout">
                 <!-- Список товаров -->
                 <div class="cart-items">
-                    <h2 class="cart-section-title">Товары в корзине <span id="items-count">(3)</span></h2>
+                    <h2 class="cart-section-title">Товары в корзине <span id="items-count">(0)</span></h2>
                     
                     <div id="cart-items-list">
                         <!-- Товары будут добавлены динамически -->
@@ -768,8 +768,8 @@
                     <h2 class="order-summary-title">Сводка заказа</h2>
                     
                     <div class="summary-row">
-                        <div class="summary-label">Товары (<span id="items-count-summary">3</span>)</div>
-                        <div class="summary-value" id="subtotal">14,697 ₽</div>
+                        <div class="summary-label">Товары (<span id="items-count-summary">0</span>)</div>
+                        <div class="summary-value" id="subtotal">0 ₽</div>
                     </div>
                     
                     <div class="summary-row">
@@ -784,7 +784,7 @@
                     
                     <div class="summary-row">
                         <div class="summary-label">Итого к оплате</div>
-                        <div class="summary-value summary-total" id="total-price">14,697 ₽</div>
+                        <div class="summary-value summary-total" id="total-price">0 ₽</div>
                     </div>
                     
                     <div class="discount-section">
@@ -951,7 +951,7 @@
             </div>
             <div style="display: flex; justify-content: space-between;">
                 <span style="color: var(--text-light);">Сумма:</span>
-                <span style="font-weight: 600; color: var(--winter-teal);" id="order-total">14,697 ₽</span>
+                <span style="font-weight: 600; color: var(--winter-teal);" id="order-total">0 ₽</span>
             </div>
         </div>
         <div style="display: flex; gap: 10px; justify-content: center;">
@@ -1341,29 +1341,6 @@
             renderCartItems();
             initCartEvents();
             updateCartCounters();
-            
-            // Обновляем демо-данные с новой ценой для "Городок декабря"
-            const cartItems = getCartFromStorage();
-            if (cartItems.length === 0) {
-                // Если корзина пуста, инициализируем с новыми ценами
-                const updatedCartItems = [
-                    { id: 1, name: "Городок декабря", price: 9000, quantity: 1 },
-                    { id: 2, name: "Уютный декабрь", price: 3199, quantity: 1 },
-                    { id: 4, name: "Кофейное путешествие", price: 4599, quantity: 1 }
-                ];
-                saveCartToStorage(updatedCartItems);
-                renderCartItems();
-            } else {
-                // Обновляем цену для "Городок декабря" если он есть в корзине
-                const updatedCartItems = cartItems.map(item => {
-                    if (item.id === 1 && item.name === "Городок декабря") {
-                        return { ...item, price: 9000 };
-                    }
-                    return item;
-                });
-                saveCartToStorage(updatedCartItems);
-                renderCartItems();
-            }
         });
     </script>
 </body>
